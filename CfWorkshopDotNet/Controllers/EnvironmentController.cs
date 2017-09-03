@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace CfWorkshopDotNet.Controllers
 {
-    public class HomeController : Controller
+    public class EnvironmentController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public void Kill()
+        {
+            Process.GetCurrentProcess().Kill();
         }
 
         public ActionResult About()

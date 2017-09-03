@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CfWorkshopDotNet.Models.Note>
+@{
+    ViewBag.Title = "All Notes";
+}
+
+<div class="row">
+    <div class="col md-12">
+        <h2>All Notes</h2>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Created</td>
+                    <td>Note</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Created)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Text)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" })
+                            &nbsp;
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger"})
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col md-12">
+        <div class="well">
+            @Html.ActionLink("New Note", "Create", "Notes", new { area = "" }, new { @class = "btn btn-success" })
+        </div>
+    </div>
+</div>

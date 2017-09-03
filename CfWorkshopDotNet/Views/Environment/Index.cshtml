@@ -1,0 +1,48 @@
+﻿<div class="row">
+    <div class="col md-12">
+        <h2>Environment</h2>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">Environment Information</h4>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>Application Name</td>
+                    <td><em>@ViewData["ApplicationName"]</em></td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td><em>@ViewData["ApplicationUris"]</em></td>
+                </tr>
+                <tr>
+                    <td>Instance Index</td>
+                    <td><em>@ViewData["InstanceIndex"]</em></td>
+                </tr>
+                <tr>
+                    <td>Instance ID</td>
+                    <td><em>@ViewData["InstanceId"]</em></td>
+                </tr>
+                <tr>
+                    <td>Bound Services</td>
+                    <td><em>@ViewData["BoundServices"]</em></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col md-12">
+        <div class="well">
+            <a href="javascript:window.location.reload()" class="btn btn-primary">Refresh</a>
+            <a href="/Environment/Kill" class="btn btn-danger">Kill</a>
+        </div>
+    </div>
+</div>
+
+
+
