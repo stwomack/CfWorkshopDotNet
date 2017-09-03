@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This is a demo app for CF workshops, written in ASP.NET Core.
+This is a demo app for CF workshops, written in ASP.NET.
 It is intended to demonstrate some of the day-in-the-life features for developers in CF
 
  * Push / bind / scale
@@ -17,23 +17,6 @@ It is intended to demonstrate some of the day-in-the-life features for developer
 #### To get the source code and build the project
 
 
-    git clone https://github.com/bjimerson-pivotal/CfWorkshopDotNetCore
-
-    dotnet restore
-
-    dotnet build
-
+    git clone https://github.com/bjimerson-pivotal/CfWorkshopDotNet
 
 #### To run the application
-
-By default the application uses an embedded SLQlite database.
-
-Run the application locally as an ASP.NET Core app for testing:
-
-    cd CfWorkshopDotNetCore
-
-    dotnet run
-
-Running in CF is as usual too:
-
-    cf push cf-workshop-dotnet-core
