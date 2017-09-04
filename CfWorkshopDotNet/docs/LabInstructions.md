@@ -51,4 +51,4 @@ cf set-env <app-name> <variable-name> <variable-value>
 ```
 
 ### Why this matters
-In 12-factor applications, environment variables should be used for configuration instead of code-based things like the web.config file.  PCF exposes all of the platform configuration to your application through environment variables, including bound services, which we will see later.  Instead of using files like web.config, make sure your application uses Steeltoe Configuration to set and retrieve configuration through environment variables.
+In 12-factor applications, environment variables should be used for configuration instead of code-based things like the `web.config` file.  PCF exposes all of the platform configuration to your application through environment variables, including bound services, which we will see later.  Instead of using files like `web.config`, make sure your application uses Steeltoe Configuration to set and retrieve configuration through environment variables.
