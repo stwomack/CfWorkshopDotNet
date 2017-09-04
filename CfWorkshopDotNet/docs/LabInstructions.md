@@ -52,3 +52,38 @@ cf set-env <app-name> <variable-name> <variable-value>
 
 ### Why this matters
 In 12-factor applications, environment variables should be used for configuration instead of code-based things like the `web.config` file.  PCF exposes all of the platform configuration to your application through environment variables, including bound services, which we will see later.  Instead of using files like `web.config`, make sure your application uses Steeltoe Configuration to set and retrieve configuration through environment variables.
+
+## Step 4 - Create a database and bind to it
+Click on the Notes the link in your web site.  It will take a while, but it should throw an error eventually.  This is because Notes are Entity Framework entities and we don't have a database configured yet.  Let's create a database for our application to use:
+
+```
+cf marketplace
+
+service                       plans                                                           description
+p-mysql                       100mb-dev, 2000mb-prod, 100mb                                   MySQL databases on demand
+p-rabbitmq                    standard                                                        RabbitMQ is a robust and scalable high-performance multi-protocol messaging broker.
+p-redis                       shared-vm, dedicated-vm                                         Redis service to provide pre-provisioned instances configured as a datastore, running on a shared or dedicated VM.
+p-service-registry            standard                                                        Service Registry for Spring Cloud Applications
+```
+
+Cool, there's a MySQL service setup by our platform team for us to use.  Let's create an instance and bind to it:
+
+```
+cf create-service p-mysql 100mb-dev cf-workshop-mysql
+cf bind-service <my-app-name> cf-workshop-mysql
+
+cf restage <my-app-name>
+```
+
+Now if you navigate to the Notes page in your app you should be able to add a new Note and save it.
+
+###What just happened?
+Our platform team has installed a bunch of backing services that we can use for our applications, including databases.  We browsed the PCF marketplace for available services, and created an instance of MySQL to use.  This was all done through something called a Service Broker.  A Service Broker is installed by the platform operators to let us discover, create, and bind to platform services.  Service Brokers can be for any backing services, like Oracle or MSSQL, NoSQL databases, SSO products, and service registries.
+
+When we bound to our newly created MySQL database, the Steeltoe Connector library automatically configured our connection string to use the bound MySQL database.  We didn't need to reconfigure anything in `web.config` or the like; we simply used the Steeltoe Connector library and restaged our application.
+
+## Step 5 - Scale your application out
+
+## Step 6 - Kill your application (really!)
+
+## Other things you can try
