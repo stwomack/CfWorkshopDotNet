@@ -95,7 +95,7 @@ cf app <my-app-name>
 #1   running   2017-09-04T16:04:38Z   0.0%   22.4M of 1G    61.9M of 1G
 #2   running   2017-09-04T16:04:38Z   0.0%   0 of 1G        0 of 1G
 ```
-That was easy!  We now have 3 instances of our application running.  Go to the Environment page of your app, and click the Refresh button a few times, and you should see the Instance Index property change between 0, 1, 2.  This is because when we scaled our application, the load balancer was automatically updated to include the new instances.
+That was easy!  We now have 3 instances of our application running.  Go to the Environment page of your app, and click the Refresh button a few times; you should see the Instance Index property change between 0, 1, 2.  This is because when we scaled our application, the load balancer was automatically updated to include the new instances.
 
 ### What just happened?
 Scaling to meet demand and availability is an important aspect of applications.  PCF makes scaling very easy; by using the `cf scale` command, application instances are automatically created and added to the load balancer.  PCF also has an Autoscaler service to scale your applications based on CPU, throughput, latency, or on scheduled times.  Just bind an Autoscaler service instance to your application, configure the parameters, and you're all set!
