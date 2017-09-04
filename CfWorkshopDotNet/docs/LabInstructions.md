@@ -1,6 +1,6 @@
 ﻿# Lab Instructions
 ## Introduction
-This hands-on lab will show you the basics of Pivotal Cloud Foundry and Steeltoe, and how they drastically silify your life as a developer.
+This hands-on lab will show you the basics of Pivotal Cloud Foundry and Steeltoe, and how they drastically simplify your life as a developer.
 
 _NOTE: These instructions use the CF CLI for all of the steps, since the CF CLI can execute all of the commands for the lab.  Alternatively, you can use the Apps Manager to accomplish some of the steps if you want to.  However, the Apps Manager can't do things like `cf push` or `cf restage`._
 
@@ -66,7 +66,7 @@ p-redis                       shared-vm, dedicated-vm                           
 p-service-registry            standard                                                        Service Registry for Spring Cloud Applications
 ```
 
-Cool, there's a MySQL service setup by our platform team for us to use.  Let's create an instance and bind to it:
+Cool, there's a MySQL service set up by our platform team for us to use.  Let's create an instance and bind to it:
 
 ```
 cf create-service p-mysql 100mb-dev cf-workshop-mysql
@@ -77,7 +77,7 @@ cf restage <my-app-name>
 
 Now if you navigate to the Notes page in your app you should be able to add a new Note and save it.
 
-###What just happened?
+### What just happened?
 Our platform team has installed a bunch of backing services that we can use for our applications, including databases.  We browsed the PCF marketplace for available services, and created an instance of MySQL to use.  This was all done through something called a Service Broker.  A Service Broker is installed by the platform operators to let us discover, create, and bind to platform services.  Service Brokers can be for any backing services, like Oracle or MSSQL, NoSQL databases, SSO products, and service registries.
 
 When we bound to our newly created MySQL database, the Steeltoe Connector library automatically configured our connection string to use the bound MySQL database.  We didn't need to reconfigure anything in `web.config` or the like; we simply used the Steeltoe Connector library and restaged our application.
