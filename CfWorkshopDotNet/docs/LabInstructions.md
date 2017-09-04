@@ -82,7 +82,23 @@ Our platform team has installed a bunch of backing services that we can use for 
 
 When we bound to our newly created MySQL database, the Steeltoe Connector library automatically configured our connection string to use the bound MySQL database.  We didn't need to reconfigure anything in `web.config` or the like; we simply used the Steeltoe Connector library and restaged our application.
 
-## Step 5 - Scale your application out
+## Step 5 - Scale your application
+Our application is going to need a number of instances to handle load and provide resiliency.  Right now we only have 1 instance running, so let's scale it to 3 instances:
+
+```
+cf scale <my-app-name> -i 3
+
+cf app <my-app-name>
+
+     state     since                  cpu    memory         disk          details
+#0   running   2017-09-03T23:31:42Z   0.0%   292.8M of 1G   77.6M of 1G
+#1   running   2017-09-04T16:04:38Z   0.0%   22.4M of 1G    61.9M of 1G
+#2   running   2017-09-04T16:04:38Z   0.0%   0 of 1G        0 of 1G
+```
+That was easy!  We now have 3 instances of our application running.  Go to the Environment page of your app, and click the Refresh button a few times, and you should see the Instance Index property change between 0, 1, 2.  This is because when we scaled our application, the load balancer was automatically updated to include the new instances.
+
+### What just happened?
+Scaling to meet demand and availability is an important aspect of applications.  PCF makes scaling very easy; by using the `cf scale` command, application instances are automatically created and added to the load balancer.  PCF also has an Autoscaler service to scale your applications based on CPU, throughput, latency, or on scheduled times.  Just bind an Autoscaler service instance to your application, configure the parameters, and you're all set!
 
 ## Step 6 - Kill your application (really!)
 
