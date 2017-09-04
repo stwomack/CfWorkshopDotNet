@@ -115,7 +115,7 @@ cf app <my-app-name>
 ```
 
 ### What just happened?
-PCF automatically adds health monitoring and management to your application.  When you killed the application instance running, PCF did a number of things:
+PCF automatically adds health monitoring and management to your application.  When you killed the application instance, PCF did a number of things:
 * The instance that died was removed from the load balancer, so that traffic wasn't sent to the dead instance
 * The dead instance and associated container was destroyed
 * A new container and app instance was created
