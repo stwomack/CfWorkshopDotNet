@@ -1,6 +1,11 @@
 ﻿# Lab Instructions
 ## Introduction
-This hands-on lab will show you the basics of Pivotal Cloud Foundry and Steeltoe, and how they drastically simplify your life as a developer.
+This hands-on lab will show you the basics of Pivotal Cloud Foundry and Steeltoe, and how they drastically simplify your life as a developer.  In this lab, you will learn how Pivotal Cloud Foundry and Steeltoe help with the basics of an application's lifecycle, like:
+* Deploying and running an application
+* Configuring your application in cloud environments
+* Discovering, creating, and connecting to backing services such as databases
+* Scaling your application to meet demand and provide availability
+* Monitoring and managing an application's health
 
 _NOTE: These instructions use the CF CLI for all of the steps, since the CF CLI can execute all of the commands for the lab.  Alternatively, you can use the Apps Manager to accomplish some of the steps if you want to.  However, the Apps Manager can't do things like `cf push` or `cf restage`._
 
