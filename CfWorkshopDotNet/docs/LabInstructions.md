@@ -146,6 +146,6 @@ PCF will always try to make sure that your application is healthy and in the des
 
 ## Other things you can try (extra credit)
 * Bind an Autoscaler service instance to your application and use a load testing tool to view your application automatically scale out and in.
-* Use Steeltoe Authentication libraries and the PCF SSO service to add authentication to your application.
+* Use Steeltoe Security libraries and the PCF SSO service to add authentication to your application.
 * Set space-scoped environment variables for your application, to provide things like feature flags.
 * Add a Service Registry instance, and use the Steeltoe Discovery Client to register your application.
