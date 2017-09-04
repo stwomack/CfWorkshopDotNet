@@ -101,5 +101,27 @@ That was easy!  We now have 3 instances of our application running.  Go to the E
 Scaling to meet demand and availability is an important aspect of applications.  PCF makes scaling very easy; by using the `cf scale` command, application instances are automatically created and added to the load balancer.  PCF also has an Autoscaler service to scale your applications based on CPU, throughput, latency, or on scheduled times.  Just bind an Autoscaler service instance to your application, configure the parameters, and you're all set!
 
 ## Step 6 - Kill your application (really!)
+So what happens when your application doesn't behave the way it's supposed to?  We get it, it happens.  PCF will automatically recreate app instances if they crash for some reason.  PCF always reconciles desired app state with actual app state.
+
+Go ahead and click the Kill button on the Environment page.  This will kill the running process of that app instance.  If you go back to the home page (change the URL in the address bar), you will see that your application is still available.  You can also view the state of your applications through the CF CLI:
+
+```
+cf app <my-app-name>
+
+     state     since                  cpu    memory         disk          details
+#0   running   2017-09-03T23:31:42Z   0.0%   292.8M of 1G   77.6M of 1G
+#1   running   2017-09-04T16:04:38Z   0.0%   22.4M of 1G    61.9M of 1G
+#2   starting  2017-09-04T16:04:38Z   0.0%   0 of 1G        0 of 1G
+```
+
+### What just happened?
+PCF automatically adds health monitoring and management to your application.  When you killed the application instance running, PCF did a number of things:
+* The instance that died was removed from the load balancer, so that traffic wasn't sent to the dead instance
+* The dead instance and associated container was destroyed
+* A new container and app instance was created
+* The new app instance was started
+* The new app instance was added to the load balancer
+
+PCF will always try to make sure that your application is healthy and in the desired state for you.
 
 ## Other things you can try
