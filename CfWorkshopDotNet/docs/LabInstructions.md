@@ -13,7 +13,7 @@ Before beginning this lab, make sure you have the following set up:
 1. Open a Command Prompt window, and change your working directory to the CS project: `cd <git-repo-root>\CfWorkshopDotNet`
 
 ## Step 1 - Setup
-Target your Pivotal Cloud Foundry instance with the CF CLI, and log in:
+Target your Pivotal Cloud Foundry (PCF) instance with the CF CLI, and log in:
 
 ```
 cf api https://api.<your-cf-url> --skip-ssl-validation
