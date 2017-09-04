@@ -18,10 +18,12 @@ Target your Pivotal Cloud Foundry (PCF) instance with the CF CLI, and log in:
 ```
 cf api https://api.<your-cf-url> --skip-ssl-validation
 cf login
+```
 
-#Verify that you are logged in properly
+And verify that you are logged in properly:
+
+```
 cf target
-
 ```
 
 ## Step 2 - Deploy your app
