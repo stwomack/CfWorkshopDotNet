@@ -54,7 +54,7 @@ cf set-env <app-name> <variable-name> <variable-value>
 In 12-factor applications, environment variables should be used for configuration instead of code-based things like the `web.config` file.  PCF exposes all of the platform configuration to your application through environment variables, including bound services, which we will see later.  Instead of using files like `web.config`, make sure your application uses Steeltoe Configuration to set and retrieve configuration through environment variables.
 
 ## Step 4 - Create a database and bind to it
-Click on the Notes the link in your web site.  It will take a while, but it should throw an error eventually.  This is because Notes are Entity Framework entities and we don't have a database configured yet.  Let's create a database for our application to use:
+Click on the Notes link in your web site.  It will take a while, but it should throw an error eventually.  This is because Notes are Entity Framework entities and we don't have a database configured yet.  Let's create a database for our application to use:
 
 ```
 cf marketplace
