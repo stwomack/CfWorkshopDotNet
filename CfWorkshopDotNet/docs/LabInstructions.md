@@ -2,7 +2,11 @@
 ## Introduction
 This hands-on lab will show you the basics of Pivotal Cloud Foundry and Steeltoe, and how they drastically silify your life as a developer.
 
+<<<<<<< HEAD
 _NOTE: These instructions use the CF CLI for all of the steps, since the CF CLI can execute all of the commands for the lab.  Alternatively, you can use the Apps Manager to accomplish some of the steps if you want to.  However, the Apps Manager can't do things like `cf push` or `cf restage`._
+=======
+__NOTE: These instructions use the CF CLI for all of the steps, since the CF CLI can execute all of the commands for the lab.  Alternatively, you can use the Apps Manager to accomplish some of the steps if you want to.  However, the Apps Manager can't do things like `cf push` or `cf restage`.__
+>>>>>>> 5a838824c04f89b22339e72a4e9d108b8fb4367c
 
 ## Prerequisites
 Before beginning this lab, make sure you have the following set up:
