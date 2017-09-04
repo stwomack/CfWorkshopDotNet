@@ -4,6 +4,7 @@ This hands-on lab will show you the basics of Pivotal Cloud Foundry and Steeltoe
 * Deploying and running an application
 * Configuring your application in cloud environments
 * Discovering, creating, and connecting to backing services such as databases
+* Viewing application and system logs
 * Scaling your application to meet demand and provide availability
 * Monitoring and managing an application's health
 
@@ -89,7 +90,19 @@ Our platform team has installed a bunch of backing services that we can use for 
 
 When we bound to our newly created MySQL database, the Steeltoe Connector library automatically configured our connection string to use the bound MySQL database.  We didn't need to reconfigure anything in `web.config` or the like; we simply used the Steeltoe Connector library and restaged our application.
 
-## Step 5 - Scale your application
+## Step 5 - View your application logs
+Now that you have a database to connect to and everything is working properly, let's view the application and system logs:
+
+```
+cf logs <my-app-name>
+```
+
+Refresh your app in the browser a few times and observe the log output.  You can hit CTRL+C to stop viewing the logs.
+
+### Why is this important?
+A la 12-factor apps, application logs should be treated as streams, and not written to files or databases.  PCF automatically aggregates application logs with system component logs, like the Router and the Cloud Controller, and exposes them as a stream that can be sent to external outputs.  All you have to do is write your logs to standard out and standard error, and PCF automatically intercepts and streams them.  Most customers use an external syslog server to store and analyze application logs in the event that something happens.
+
+## Step 6 - Scale your application
 Our application is going to need a number of instances to handle load and provide resiliency.  Right now we only have 1 instance running, so let's scale it to 3 instances:
 
 ```
@@ -107,7 +120,7 @@ That was easy!  We now have 3 instances of our application running.  Go to the E
 ### Why is this important?
 Scaling to meet demand and availability is an important aspect of applications.  PCF makes scaling very easy; by using the `cf scale` command, application instances are automatically created and added to the load balancer.  PCF also has an Autoscaler service to scale your applications based on CPU, throughput, latency, or on scheduled times.  Just bind an Autoscaler service instance to your application, configure the parameters, and you're all set!
 
-## Step 6 - Kill your application (really!)
+## Step 7 - Kill your application (really!)
 So what happens when your application doesn't behave the way it's supposed to?  We get it, it happens.  PCF will automatically recreate app instances if they crash for some reason.  PCF always reconciles desired app state with actual app state.
 
 Go ahead and click the Kill button on the Environment page.  This will kill the running process of that app instance.  If you go back to the home page (change the URL in the address bar), you will see that your application is still available.  You can also view the state of your applications through the CF CLI:
@@ -131,4 +144,8 @@ PCF automatically adds health monitoring and management to your application.  Wh
 
 PCF will always try to make sure that your application is healthy and in the desired state for you.
 
-## Other things you can try
+## Other things you can try (extra credit)
+* Bind an Autoscaler service instance to your application and use a load testing tool to view your application automatically scale out and in.
+* Use Steeltoe Authentication libraries and the PCF SSO service to add authentication to your application.
+* Set space-scoped environment variables for your application, to provide things like feature flags.
+* Add a Service Registry instance, and use the Steeltoe Discovery Client to register your application.
