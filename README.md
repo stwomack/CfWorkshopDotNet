@@ -1,22 +1,17 @@
-## CF Workshop Demo
+# CF Workshop Demo
 
-### Introduction
+## Introduction
 
-This is a demo app for CF workshops, written in ASP.NET.
-It is intended to demonstrate some of the day-in-the-life features for developers in CF
+This is a demo app for cloud natvie workshops, written in ASP.NET.
+It is intended to demonstrate some of the day-in-the-life features for developers in PCF and Steeltoe
 
  * Push / bind / scale
  * Accessing CF environment variables
  * Accessing CF service variables
  * Scaling, dynamic routing and load balancing
- * Health management and application restart
+ * Health monitoring and management
  * Binding services
 
-### Building, Packaging, and Deploying
+## Lab instructions
 
-#### To get the source code and build the project
-
-
-    git clone https://github.com/bjimerson-pivotal/CfWorkshopDotNet
-
-#### To run the application
+For more information on how to demonstrate PCF and Steeltoe, go to [this page](./CfWorkshopDotNet/docs/LabInstructions.md)
