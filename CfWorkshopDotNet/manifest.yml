@@ -1,0 +1,5 @@
+﻿---
+applications:
+- name: cf-workshop-dot-net
+  host: cf-workshop-${random-word}
+  stack: windows2012R2

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.PlatformAbstractions;
 using Steeltoe.Extensions.Configuration;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
@@ -10,7 +12,7 @@ namespace CfWorkshopDotNet
 {
     public class ProviderConfig
     {
-        public static IConfiguration Configuration { get; set; }
+        public static IConfigurationRoot Configuration { get; set; }
 
         public static CloudFoundryApplicationOptions ApplicationOptions
         {
@@ -34,6 +36,9 @@ namespace CfWorkshopDotNet
 
         public static void RegisterConfigProviders(String environmentName)
         {
+            ILoggerFactory loggerFactory = new LoggerFactory();
+            loggerFactory.AddConsole(LogLevel.Debug);
+
             var environment = new HostingEnvironment(environmentName);
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
