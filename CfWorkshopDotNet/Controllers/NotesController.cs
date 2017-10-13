@@ -1,38 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Common;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using MySql.Data.MySqlClient;
 using CfWorkshopDotNet.Models;
 
 namespace CfWorkshopDotNet.Controllers
 {
     public class NotesController : Controller
     {
-        private CfWorkshopDotNetContext db = new CfWorkshopDotNetContext();
+
+        private MySqlConnection mySqlConnection;
+
+        public NotesController(MySqlConnection mySqlConnection)
+        {
+            this.mySqlConnection = mySqlConnection;
+        }
 
         // GET: Notes
         public ActionResult Index()
         {
-            return View(db.Notes.ToList());
-        }
+            mySqlConnection.Open();
+            DbCommand command = new MySqlCommand("SELECT * FROM NOTES", mySqlConnection);
+            DbDataReader reader = command.ExecuteReader();
 
-        // GET: Notes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            List<Note> notes = new List<Note>();
+
+            if (reader.HasRows)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                while (reader.Read())
+                {
+                    Note note = new Note();
+                    note.ID = reader.GetInt32(0);
+                    note.Created = reader.GetDateTime(1);
+                    note.Text = reader.GetString(2);
+                    notes.Add(note);
+                }
             }
-            Note note = db.Notes.Find(id);
-            if (note == null)
-            {
-                return HttpNotFound();
-            }
-            return View(note);
+
+            reader.Close();
+            mySqlConnection.Close();
+
+            return View(notes);
         }
 
         // GET: Notes/Create
@@ -50,8 +59,12 @@ namespace CfWorkshopDotNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Notes.Add(note);
-                db.SaveChanges();
+                mySqlConnection.Open();
+                DbCommand command = new MySqlCommand("INSERT INTO NOTES(ID, TEXT) VALUES (@ID, @TEXT)", mySqlConnection);
+                command.Parameters.Add(new MySqlParameter("@ID", note.ID));
+                command.Parameters.Add(new MySqlParameter("@TEXT", note.Text));
+                command.ExecuteNonQuery();
+                mySqlConnection.Close();
                 return RedirectToAction("Index");
             }
 
@@ -65,11 +78,31 @@ namespace CfWorkshopDotNet.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Note note = db.Notes.Find(id);
-            if (note == null)
+
+            mySqlConnection.Open();
+            DbCommand command = new MySqlCommand("SELECT * FROM NOTES WHERE ID = @ID", mySqlConnection);
+            command.Parameters.Add(new MySqlParameter("@ID", id));
+            DbDataReader reader = command.ExecuteReader();
+
+            Note note;
+            if (!reader.HasRows)
             {
                 return HttpNotFound();
             }
+            else
+            {
+                reader.Read();
+                note = new Note
+                {
+                    ID = reader.GetInt32(0),
+                    Created = reader.GetDateTime(1),
+                    Text = reader.GetString(2)
+                };
+            }
+
+            reader.Close();
+            mySqlConnection.Close();
+
             return View(note);
         }
 
@@ -80,48 +113,33 @@ namespace CfWorkshopDotNet.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Text,Created")] Note note)
         {
+            
             if (ModelState.IsValid)
             {
-                db.Entry(note).State = EntityState.Modified;
-                db.SaveChanges();
+                mySqlConnection.Open();
+                DbCommand command = new MySqlCommand("UPDATE NOTES SET CREATED = @CREATED, TEXT = @TEXT WHERE (ID = @ID)", mySqlConnection);
+                command.Parameters.Add(new MySqlParameter("@ID", note.ID));
+                command.Parameters.Add(new MySqlParameter("@CREATED", note.Created));
+                command.Parameters.Add(new MySqlParameter("@TEXT", note.Text));
+                command.ExecuteNonQuery();
+                mySqlConnection.Close();
                 return RedirectToAction("Index");
             }
             return View(note);
         }
 
-        // GET: Notes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Note note = db.Notes.Find(id);
-            if (note == null)
-            {
-                return HttpNotFound();
-            }
-            return View(note);
-        }
 
-        // POST: Notes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        // GET: Notes/Delete/5
+        [HttpGet, ActionName("Delete")]
+        public ActionResult Delete(int id)
         {
-            Note note = db.Notes.Find(id);
-            db.Notes.Remove(note);
-            db.SaveChanges();
+            mySqlConnection.Open();
+            DbCommand command = new MySqlCommand("DELETE FROM NOTES WHERE (ID = @ID)", mySqlConnection);
+            command.Parameters.Add(new MySqlParameter("@ID", id));
+            command.ExecuteNonQuery();
+            mySqlConnection.Close();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

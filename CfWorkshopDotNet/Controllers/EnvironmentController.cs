@@ -14,13 +14,24 @@ namespace CfWorkshopDotNet.Controllers
         public ActionResult Index()
         {
             CloudFoundryApplicationOptions applicationOptions = ProviderConfig.ApplicationOptions;
-            Console.WriteLine(applicationOptions.ToString());
+            CloudFoundryServicesOptions servicesOptions = ProviderConfig.ServicesOptions;
          
             ViewData["ApplicationName"] = applicationOptions.ApplicationName;
-            ViewData["ApplicationUris"] = applicationOptions.ApplicationUris == null ? "" : applicationOptions.ApplicationUris[0];
+            ViewData["ApplicationUris"] = applicationOptions.ApplicationUris == null ? "" : String.Join(", ", applicationOptions.ApplicationUris);
             ViewData["InstanceIndex"] = applicationOptions.InstanceIndex;
             ViewData["InstanceId"] = applicationOptions.InstanceId;
-            ViewData["BoundServices"] = "please fix me";
+
+            string serviceList = "";
+            foreach (var service in servicesOptions.Services)
+            {
+                if (serviceList.Length > 0)
+                {
+                    serviceList += ", ";
+                }
+                serviceList += service.Name;
+            }
+            ViewData["BoundServices"] = serviceList;
+
             return View();
         }
 
@@ -28,20 +39,6 @@ namespace CfWorkshopDotNet.Controllers
         public void Kill()
         {
             Process.GetCurrentProcess().Kill();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }
