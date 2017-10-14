@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Net;
 using System.Web.Mvc;
+using log4net;
 using MySql.Data.MySqlClient;
 using CfWorkshopDotNet.Models;
 
@@ -9,6 +10,7 @@ namespace CfWorkshopDotNet.Controllers
 {
     public class NotesController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(NotesController));
 
         private MySqlConnection mySqlConnection;
 
@@ -20,6 +22,7 @@ namespace CfWorkshopDotNet.Controllers
         // GET: Notes
         public ActionResult Index()
         {
+            log.Debug("Fetching all notes.");
             mySqlConnection.Open();
             DbCommand command = new MySqlCommand("SELECT * FROM NOTES", mySqlConnection);
             DbDataReader reader = command.ExecuteReader();
@@ -40,7 +43,7 @@ namespace CfWorkshopDotNet.Controllers
 
             reader.Close();
             mySqlConnection.Close();
-
+            log.Debug(string.Format("Notes retrieved:[{0}]", notes));
             return View(notes);
         }
 
@@ -59,6 +62,7 @@ namespace CfWorkshopDotNet.Controllers
         {
             if (ModelState.IsValid)
             {
+                log.Debug(string.Format("Creating Note {0}", note));
                 mySqlConnection.Open();
                 DbCommand command = new MySqlCommand("INSERT INTO NOTES(ID, TEXT) VALUES (@ID, @TEXT)", mySqlConnection);
                 command.Parameters.Add(new MySqlParameter("@ID", note.ID));
