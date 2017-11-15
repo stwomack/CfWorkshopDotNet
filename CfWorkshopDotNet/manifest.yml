@@ -3,5 +3,5 @@ applications:
 - name: cf-workshop-dotnet-${random-word}
   host: cf-workshop-dotnet-${random-word}
   stack: windows2012R2
-  services:
-   - cf-workshop-db
+#  services:
+#   - cf-workshop-db
