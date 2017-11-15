@@ -81,7 +81,7 @@ p-service-registry            standard                                          
 Cool, there's a MySQL service set up by our platform team for us to use.  Let's create an instance and bind to it:
 
 ```
-cf create-service p-mysql 100mb-dev cf-workshop-mysql
+cf create-service p-mysql 100mb cf-workshop-mysql
 cf bind-service <my-app-name> cf-workshop-mysql
 
 cf restage <my-app-name>
