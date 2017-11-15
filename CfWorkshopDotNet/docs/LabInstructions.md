@@ -15,14 +15,18 @@ Before beginning this lab, make sure you have the following set up:
 
 1. The latest version of the CF CLI installed: https://github.com/cloudfoundry/cli/releases
 1. The latest git client installed: https://git-scm.com/downloads
-1. Clone this repository: `git clone https://github.com/bjimerson-pivotal/CfWorkshopDotNet`
+1. Clone this repository: `git clone https://github.com/stwomack/CfWorkshopDotNet`
 1. Open a Command Prompt window, and change your working directory to the CS project: `cd <git-repo-root>\CfWorkshopDotNet`
+
+## Pre-Step for ESI
+Log into App Express and request access to your org.
+https://app-express.apps.ps2pcf01.express-scripts.com/#/login  (Main page scroll down to request access to “Community Org”)
 
 ## Step 1 - Setup
 Target your Pivotal Cloud Foundry (PCF) instance with the CF CLI, and log in:
 
 ```
-cf api https://api.<your-cf-url> --skip-ssl-validation
+cf api https://api.sys.ch3pcf01.express-scripts.com --skip-ssl-validation
 cf login
 ```
 

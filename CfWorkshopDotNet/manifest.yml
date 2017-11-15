@@ -1,7 +1,7 @@
 ﻿---
 applications:
-- name: cf-workshop-dot-net
-  host: cf-workshop-dot-net
+- name: cf-workshop-dotnet-${random-word}
+  host: cf-workshop-dotnet-${random-word}
   stack: windows2012R2
   services:
    - cf-workshop-db
